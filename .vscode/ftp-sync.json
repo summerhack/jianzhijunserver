@@ -1,0 +1,21 @@
+{
+    "remotePath": "/myweb",
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.sublime-(project|workspace)", "sftp-config(-alt\\d?)?\\.json",
+        "sftp-settings\\.json", "/venv/", "\\.svn/", "\\.hg/", "\\.git/",
+        "\\.bzr", "_darcs", "CVS", "\\.DS_Store", "Thumbs\\.db", "desktop\\.ini","node_modules"
+    ],
+ 
+    "host": "138.128.221.194",
+    "username": "root",
+    "password": "oveVTL7gR9mz",
+    "port": "27543"
+    
+}
