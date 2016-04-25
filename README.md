@@ -32,9 +32,7 @@
 | place | String | False | 待定 | 暂无此功能 |
 | time | String | False | 待定 | 暂无此功能 |
 | **排序关键字** |||| 只允许一个排序key |
-| nearby | Bool | False | true | 暂无此功能 |
-| highPrice | Bool | False | true | 暂无此功能 |
-| newDate | Bool | False | true | -- |
+| sort | String | False | nearby,highPrice,newDate | -- |
 | **加载关键字** |||||
 | topMore/endMore | String | False | _id | top/end信息的id值 |
 
@@ -61,7 +59,7 @@
 ```
 /job?jobType=sale&newDate=true&topMore=456328183
 ```
-####返回结果
+ ####返回结果
 ---
 - json示例
 
