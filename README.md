@@ -15,7 +15,7 @@
 
 
 ##用户信息接口详情
-#### /job  （GET方法）
+#### /job  （GET方法）<a name="api-job">
 ---
  获取兼职讯息
 ##### 是否需要权限验证
@@ -27,7 +27,7 @@
 |:----------:|:----------:|:----------:|:----------:|:----------:|
 | **类型关键字** |||| 允许多个key |
 | key | String | False | 待定 | 暂无此功能 |
-| jobType | String| False |  见附表  | -- |
+| jobType | String| False |  [见附表](#tab-jobType)  | -- |
 | sex | String | False | all,m,f | -- |
 | place | String | False | 待定 | 暂无此功能 |
 | time | String | False | 待定 | 暂无此功能 |
@@ -40,7 +40,7 @@
 
 #####附表
 ---
-- jobType
+- jobType <a name="tab-jobType">
 
 
     - promotion  推广/注册 
