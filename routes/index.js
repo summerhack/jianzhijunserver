@@ -38,6 +38,7 @@ var newUseObj = function(obj,array) {
 	}
 	return newObj;
 }
+//
 
 
 /* GET home page. */
@@ -46,7 +47,7 @@ router.get('/', function(req, res, next) {
   res.send('helloworld');
 });
 
-router.get('/job',function(req,res,next) {
+router.get('/test',function(req,res,next) {
 	res.send({
 	'page1':
 	[{
@@ -78,19 +79,50 @@ router.get('/job',function(req,res,next) {
 		}
 	}]
 	})
-})
+});
 
-router.get('/test',function(req,res,next) {	
-	var originalUrl = /(?!((.*)\?))(.*)/.exec(req.originalUrl);//剔除/test?
-	var searchData = getUrlParms(originalUrl[0]);//转化为obj
-	var sortKey = searchData.sort || 'newDate';
-	var topMore = searchData.topMore || '';
-	var endMore = searchData.endMore || '';
-	var queryObj = newUseObj(searchData,['sort','endMore','topMore']);//剔除sort&&loadmore
-	var sortType = 'publishDate';//默认按时间排序
-	var sortWay = -1; //默认从大到小
-	var compare = '$lt';
-	console.log('compare1: '+compare)
+router.get('/job',function(req,res,next) {	
+	var originalUrl = /(?!((.*)\?))(.*)/.exec(req.originalUrl),//剔除/test?
+		searchData = getUrlParms(originalUrl[0]),//转化为obj
+		sortKey = searchData.sort || 'newDate', //存入排序类型
+		job = searchData.jobType || '',//存入jobType
+		placeCode = searchData.place || 0,//存入地区
+		time = searchData.time || '',//存入time
+		topMore = searchData.topMore || '',//存入上拉ID
+		endMore = searchData.endMore || '';//存入下拉ID
+		
+	//变量赋值
+	var	queryObj = newUseObj(searchData,['jobType','place','time','sort','endMore','topMore']),//剔除sort&&loadmore
+		sortType = 'publishDate',//默认按时间排序
+		sortWay = -1, //默认从大到小
+		compare = '$lt'; //默认降序
+	
+	//处理queryObj
+	//处理jobType
+	if(job !== '') {
+		var type = job,
+			keyjob = 'jobType.0';
+		queryObj[keyjob] = type;
+	};
+	
+	//place处理
+	if(placeCode !== 0) {
+		var keyplace = 'place.code';
+		queryObj[keyplace] = Number(placeCode); 	
+	};
+	//time处理
+	//处理time，存入minDate&&maxDate
+	if(time !== '') {
+		var minDate = time[0],
+			maxDate = time[1];
+		var keytime1 = 'time.0';
+		queryObj[keytime1] = { '$lte' : maxDate };
+		var keytime2 = 'time.1';
+		queryObj[keytime2] = { '$gte' : minDate };	
+	}
+	
+	
+	//sort处理,根据排序类型选择关键字
 	if(sortKey) {
 			switch(sortKey){
 				case 'nearby':
@@ -109,33 +141,41 @@ router.get('/test',function(req,res,next) {
 					compare = '$lt';
 					break;
 			}
-	}	
+	}
+	
+	//加载处理,当此请求为load endmore 或load topmore
 	if(topMore || endMore) {
-		//当此请求为load endmore 或load topmore
 		var id = endMore;
+		//若为上拉加载
 		if(topMore) {
 			compare = (compare == '$lt')? '$gt' : '$lt';//topmore时取反
-			console.log('compare: '+compare);
-			id = topMore;
-			  
+			id = topMore;  
 		}
-		console.log('haha')
+		//寻找此id排序值
 		var condition = {};
 		condition[sortType]=1;//{sortType:1}
-		Job.find({_id : id},condition,function(err,docs){//查找此id对应得排序种类排序值
+		Job.find({_id : id},condition,function(err,docs){
 				console.log(JSON.stringify(docs));
 				var target = docs[0].get(sortType);
-				if(sortType == 'publishDate'){
-					var sortTag= target
-				}else{
-					var sortTag = target
-				} 
+				// if(sortType == 'publishDate'){
+				// 	var sortTag= target
+				// }else{
+				// 	var sortTag = target
+				// } 
+				sortTag = target;
+				
+				//在queryObj中添加sortType对象
 				queryObj[sortType] = {};
 				queryObj[sortType][compare] = sortTag
+				
+				//创建sortObj
 				var sortObj={};
 				sortObj[sortType] = sortWay;
-				console.log('queryObjsort: '+JSON.stringify(queryObj));
+
 				
+				//取出数据
+				console.log('queryObj-load: '+JSON.stringify(queryObj));
+				console.log('sortObj: '+JSON.stringify(sortObj));
 				Job.find(queryObj,null,{sort:sortObj,limit:5},function(err, docs){
 					if (err) {
 						console.log('err:',err);
@@ -147,15 +187,19 @@ router.get('/test',function(req,res,next) {
 				})
 		});
 	}else{
+		//创建sortObj
 		var sortObj={};
 		sortObj[sortType] = sortWay;
-		console.log('queryObjnosort: '+JSON.stringify(queryObj));
+		
+		//取出数据
+		console.log('queryObj: '+JSON.stringify(queryObj));
+		console.log('sortObj: '+JSON.stringify(sortObj));
 		Job.find(queryObj,null,{sort:sortObj,limit:5},function(err, docs){
 			if (err) {
 				console.log('err:',err);
 				return;
 			};
-			var sendData=docs
+			var sendData=docs;
 			res.send(sendData);
 			return
 		})

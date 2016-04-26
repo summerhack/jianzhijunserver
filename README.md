@@ -79,39 +79,39 @@
 - json示例
 
 ```
- {
-    "_id" : ObjectId("571bad0fa6852518f72118e1"),
-    "name" : "调研员",
-    "company" : "秋源传媒",
-    "price" : "40/时",
-    "priceState" : 3,
+{
+    "_id" : ObjectId("571bb31aa6852518f72118e7"),
+    "name" : "高校校园代理",
+    "company" : "易倍特电子",
+    "price" : "100/日",
+    "priceState" : 2,
     "place" : {
-        "code" : 315010,
+        "code" : 315040,
         "city" : "NB",
-        "district" : "海曙区"
+        "district" : "江东区"
     },
-    "jobType" : {
-        "survey" : "调研/问卷"
-    },
-    "compType" : "传媒/文化",
+    "compType" : "通信/电子",
     "time" : [ 
-        ISODate("2016-04-17T00:36:20.201Z"), 
-        ISODate("2016-04-21T00:40:20.201Z")
+        ISODate("2016-04-19T00:38:20.201Z"), 
+        ISODate("2016-04-29T00:48:20.201Z")
     ],
     "distance" : {
-        "longitude" : 46.34576,
-        "atitude" : 126.96453
+        "longitude" : 46.14476,
+        "atitude" : 126.97443
     },
     "sex" : "all",
     "thumbUrl" : {
-        "2x" : "138.128.221.194:3000/images/2x/qiuyuan.jpg",
-        "3x" : "138.128.221.194:3000/images/3x/qiuyuan.jpg"
+        "2x" : "138.128.221.194:3000/images/2x/yibeite.jpg",
+        "3x" : "138.128.221.194:3000/images/3x/yibeite.jpg"
     },
-    "publishDate" : ISODate("2016-04-15T16:20:41.201Z"),
+    "publishDate" : ISODate("2016-04-17T23:21:11.201Z"),
+    "jobType" : [ 
+        "agent", 
+        "校园代理"
+    ],
     "key" : [ 
-        "调研", 
-        "秋源", 
-        "问卷"
+        "校园", 
+        "代理"
     ]
 }
 ```
