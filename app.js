@@ -10,6 +10,7 @@ var mongoose = require('./config/mongoose.js');
 var db = mongoose();
 
 var routes = require('./routes/index');
+var jobs = require('./routes/job');
 var users = require('./routes/users');
 
 var app = express();
@@ -26,7 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(multer());
-app.use('/', routes);
+app.use('/routes', routes);
+app.use('/', jobs);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
