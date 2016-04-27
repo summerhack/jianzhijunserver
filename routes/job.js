@@ -45,12 +45,12 @@ router.get('/job',function(req,res,next) {
 		sortKey = searchData.sort || 'newDate', //存入排序类型
 		job = searchData.jobType || '',//存入jobType
 		placeCode = searchData.place || 0,//存入地区
-		time = searchData.time || '',//存入time
+		time = searchData.date || '',//存入time
 		topMore = searchData.topMore || '',//存入上拉ID
 		endMore = searchData.endMore || '';//存入下拉ID
 		
 	//变量赋值
-	var	queryObj = newUseObj(searchData,['jobType','place','time','sort','endMore','topMore']),//剔除sort&&loadmore
+	var	queryObj = newUseObj(searchData,['jobType','place','date','sort','endMore','topMore']),//剔除sort&&loadmore
 		sortType = 'publishDate',//默认按时间排序
 		sortWay = -1, //默认从大到小
 		compare = '$lt'; //默认降序
@@ -73,9 +73,9 @@ router.get('/job',function(req,res,next) {
 	if(time !== '') {
 		var minDate = time[0],
 			maxDate = time[1];
-		var keytime1 = 'time.0';
+		var keytime1 = 'date.0';
 		queryObj[keytime1] = { '$lte' : maxDate };
-		var keytime2 = 'time.1';
+		var keytime2 = 'date.1';
 		queryObj[keytime2] = { '$gte' : minDate };	
 	}
 	
@@ -134,7 +134,17 @@ router.get('/job',function(req,res,next) {
 				//取出数据
 				console.log('queryObj-load: '+JSON.stringify(queryObj));
 				console.log('sortObj: '+JSON.stringify(sortObj));
-				Job.find(queryObj,null,{sort:sortObj,limit:5},function(err, docs){
+				Job.find(queryObj,{
+                        "_id":1,
+                        "name":1,
+                        "company":1,
+                        "price":1,
+                        "place":1,
+                        "comType":1,
+                        "date":1,
+                        "distance":1,
+                        "thumbUrl":1,
+                    },{sort:sortObj,limit:5},function(err, docs){
 					if (err) {
 						console.log('err:',err);
 						return;
@@ -152,7 +162,17 @@ router.get('/job',function(req,res,next) {
 		//取出数据
 		console.log('queryObj: '+JSON.stringify(queryObj));
 		console.log('sortObj: '+JSON.stringify(sortObj));
-		Job.find(queryObj,null,{sort:sortObj,limit:5},function(err, docs){
+		Job.find(queryObj,{
+                "_id":1,
+                "name":1,
+                "company":1,
+                "price":1,
+                "place":1,
+                "comType":1,
+                "date":1,
+                "distance":1,
+                "thumbUrl":1,
+            },{sort:sortObj,limit:5},function(err, docs){
 			if (err) {
 				console.log('err:',err);
 				return;

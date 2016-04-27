@@ -32,7 +32,7 @@
 | jobType | String| False |  [见附表](#tab-jobType) | -- |
 | sex | String | False | all,m,f | -- |
 | place | Num | False | [见附表](#tab-place) | -- |
-| time | Array | False | [min,max] | 数组中传入Date类型 |
+| date | Array | False | [min,max] | 数组中传入Date类型 |
 | **排序关键字** |||| 只允许一个排序key |
 | sort | String | False | nearby,highPrice,newDate | 暂不支持nearby |
 | **加载关键字** |||||
@@ -73,7 +73,7 @@
 ####调用样例
 ---
 ```
-/job?place=315100&sex=all&newDate=true&topMore=571bad0fa6852518f72118e1
+/job?sex=all&sort=newDate&place=315100&topMore=571bb065a6852518f72118e4
 ```
 ####返回结果
 ---
@@ -81,41 +81,26 @@
 
 ```
 [
- {
-    "_id" : ObjectId("571bb31aa6852518f72118e7"),
-    "name" : "高校校园代理",
-    "company" : "易倍特电子",
-    "price" : "100/日",
-    "priceState" : 2,
-    "place" : {
-        "code" : 315040,
-        "city" : "NB",
-        "district" : "江东区"
-    },
-    "compType" : "通信/电子",
-    "time" : [ 
-        ISODate("2016-04-19T00:38:20.201Z"), 
-        ISODate("2016-04-29T00:48:20.201Z")
-    ],
-    "distance" : {
-        "longitude" : 46.14476,
-        "atitude" : 126.97443
-    },
-    "sex" : "all",
-    "thumbUrl" : {
-        "2x" : "138.128.221.194:3000/images/2x/yibeite.jpg",
-        "3x" : "138.128.221.194:3000/images/3x/yibeite.jpg"
-    },
-    "publishDate" : ISODate("2016-04-17T23:21:11.201Z"),
-    "jobType" : [ 
-        "agent", 
-        "校园代理"
-    ],
-    "key" : [ 
-        "校园", 
-        "代理"
-    ]
- }
+    {
+        "_id": "571baea0a6852518f72118e2",
+        "name": "短期客服",
+        "company": "宁波诺丁汉",
+        "price": "20/时",
+        "place": {
+            "code": 315100,
+            "city": "NB",
+            "district": "鄞州区"
+        },
+        "date": "Mon Apr 25 2016 20:45:20 GMT-0400 (EDT),Wed Apr 27 2016 20:47:20 GMT-0400 (EDT)",
+        "thumbUrl": {
+            "ios2x": "138.128.221.194:3000/images/2x/nuodinghan.jpg",
+            "ios3x": "138.128.221.194:3000/images/3x/nuodinghan.jpg"
+        },
+        "distance": {
+            "longitude": 46.14544,
+            "atitude": 126.97433
+        }
+    }
 ]
 ```
 
@@ -144,7 +129,7 @@
 ####调用样例
 ---
 ```
-/jobone?id=571baf90a6852518f72118e3
+/jobone?id=571bac32a6852518f72118e0
 ```
 ####返回结果
 ---
@@ -152,35 +137,53 @@
 ```
   [
     {
-        "_id": "571baf90a6852518f72118e3",
-        "name": "自助西餐服务员",
-        "company": "西加自助餐",
-        "price": "150/日",
-        "priceState": 3,
-        "place": {
-            "code": 315040,
-            "city": "NB",
-            "district": "江东区"
+        "_id" : ObjectId("571bac32a6852518f72118e0"),
+        "name" : "诗朗诵充场",
+        "company" : "橘子星球",
+        "price" : "50/日",
+        "priceState" : 1,
+        "place" : {
+            "code" : 315020,
+            "city" : "NB",
+            "district" : "江北区"
         },
-        "compType": "餐饮/饭店",
-        "time": "Tue Apr 26 2016 20:46:20 GMT-0400 (EDT),Fri Apr 29 2016 20:49:20 GMT-0400 (EDT)",
-        "sex": "all",
-        "thumbUrl": {
-            "ios2x": "138.128.221.194:3000/images/2x/xijia.jpg",
-            "ios3x": "138.128.221.194:3000/images/3x/xijia.jpg"
-        },
-        "publishDate": "2016-04-25T16:27:11.201Z",
-        "jobType": "sale,店员/服务生",
-        "key": [
-            "店员",
-            "服务"
+        "compType" : "互联网/计算机",
+        "date" : [ 
+            ISODate("2016-04-24T00:43:20.201Z"), 
+            ISODate("2016-04-28T00:47:20.201Z")
         ],
-        "distance": {
-            "longitude": 46.13476,
-            "atitude": 126.45453
-        }
+        "jobInfo" : {
+            "peopleNum" : 2,
+            "countDay" : "日结",
+            "time" : "14:00-17:00",
+            "sub" : "演出充场",
+            "demand" : "按时到达，保持基本礼仪",
+            "cutDate" : ISODate("2016-04-24T00:43:20.201Z")
+        },
+        "distance" : {
+            "longitude" : 46.56326,
+            "atitude" : 126.45243,
+            "detail" : "江北万达旁"
+        },
+        "sex" : "all",
+        "thumbUrl" : {
+            "ios2x" : "138.128.221.194:3000/images/2x/juzi.jpg",
+            "ios3x" : "138.128.221.194:3000/images/3x/juzi.jpg"
+        },
+        "imgUrl" : {
+            "img" : "138.128.221.194:3000/images/img/juzi.jpg"
+        },
+        "publishDate" : ISODate("2016-04-17T17:20:11.201Z"),
+        "jobType" : [ 
+            "audience", 
+            "充场/观众"
+        ],
+        "key" : [ 
+            "充场", 
+            "观众"
+        ]
     }
-]
+ ]
 ```
 
 - 错误返回值 (暂无)
